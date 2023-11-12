@@ -9,7 +9,6 @@ const confirmPwdEl = document.querySelector('#confirm-password');
 form.addEventListener('submit', function(e){
     //prevent form from submitting
     e.preventDefault();
-
     //validate forms
     let isUsernameValid = checkUsername(),
     isEmailValid = checkEmail(),
@@ -126,7 +125,7 @@ const checkPassword = () => {
     if (!isRequired(password)) {
         showError(passwordEl, 'Password cannot be blank.');
     } else if (!isPasswordSecure(password)) {
-        showError(passwordEl, `Password  must have at least 8 characters which includes at least 1 upper case letter, 1 lower case letter, 1 number and 1 special character`);
+        showError(passwordEl, `Password  must have at least 8 characters git push -u origin mainwhich includes at least 1 upper case letter, 1 lower case letter, 1 number and 1 special character`);
     } else {
         showSuccess(passwordEl);
         valid = true;
@@ -153,3 +152,21 @@ const checkConfirmPassword = () => {
 
     return valid;
 }
+
+//Validate each field instead of on pressing 'submit'
+form.addEventListener('input', function(e) {
+    switch (e.target.id) {
+        case 'username':
+            checkUsername();
+            break;
+        case 'email':
+            checkEmail();
+            break;
+        case 'password':
+            checkPassword();
+            break;
+        case 'confirm-password':
+            checkConfirmPassword();
+            break;
+    }
+});
